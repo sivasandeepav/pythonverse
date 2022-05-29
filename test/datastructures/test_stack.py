@@ -1,3 +1,4 @@
+import sys
 import unittest
 
 from datastructures.stack import ArrayStack
@@ -5,7 +6,8 @@ from datastructures.stack import ArrayStack
 
 class TestStack(unittest.TestCase):
     def test_array_stack(self):
-        stack = ArrayStack(10)
+        size = 10
+        stack = ArrayStack(size)
 
         # test empty stack
         self.assertEqual(0, len(stack))
@@ -35,6 +37,11 @@ class TestStack(unittest.TestCase):
         # test error cases
         self.assertRaises(IndexError, stack.pop)
         self.assertRaises(IndexError, stack.peek)
+
+        # test _expand
+        for i in range(1000):
+            stack.push(i)
+        self.assertGreater(len(stack), size)
 
 
 if __name__ == '__main__':
