@@ -6,7 +6,15 @@ class SinglyLinkedListNode:
         self.next = None
 
 
-def addNode(headNode, value):
+class DoublyLinkedListNode:
+
+    def __init__(self, value):
+        self.value = value
+        self.next = None
+        self.prev = None
+
+
+def addNodeS(headNode, value):
     temp = SinglyLinkedListNode(value)
     if headNode is None:
         print("headnode is new node")
@@ -17,11 +25,23 @@ def addNode(headNode, value):
         while p.next is not None:
             p = p.next
         p.next = temp
-    print(headNode)
     return headNode
 
 
-def deleteNode(node):
+def addNodeD(headNode, value):
+    temp = DoublyLinkedListNode(value)
+    if headNode is None:
+        headNode = temp
+    else:
+        p = headNode
+        while p.next is not None:
+            p = p.next
+        p.next = temp
+        temp.prev = p
+    return headNode
+
+
+def deleteNodeS(node):
     if node is None or node.next is None:
         pass
     node.value = node.next.value
@@ -29,26 +49,67 @@ def deleteNode(node):
 
 
 if __name__ == "__main__":
-    headNode = SinglyLinkedListNode(None)
 
-    print(addNode(headNode, 23))
-    print(addNode(headNode, 24))
-    print(addNode(headNode, 25))
-    print(addNode(headNode, 26))
-    print(addNode(headNode, 27))
-    print(addNode(headNode, 28))
-    print(addNode(headNode, 29))
-    print(addNode(headNode, 30))
+    # Singly Linked List operations
+    headNodeS = SinglyLinkedListNode(None)
 
-    temp = headNode
+    addNodeS(headNodeS, 23)
+    addNodeS(headNodeS, 24)
+    addNodeS(headNodeS, 25)
+    addNodeS(headNodeS, 26)
+    addNodeS(headNodeS, 27)
+    addNodeS(headNodeS, 28)
+    addNodeS(headNodeS, 29)
+    addNodeS(headNodeS, 30)
+
+    headNodeS = headNodeS.next
+    temp = headNodeS
+
+    # Print full sequence once after adding all nodes
+    print("Full Sequence after adding all nodes : ")
     while temp.next is not None:
         print(temp.value)
         temp = temp.next
+        if temp.next is None:
+            print(temp.value)
 
-    to_del = headNode.next.next.next
-    deleteNode(to_del)
+    # Deleting a node
+    to_del = headNodeS.next.next.next
+    deleteNodeS(to_del)
 
-    temp = headNode
+    # After a node is deleted
+    print("After deleting one node : ")
+    temp = headNodeS
     while temp.next is not None:
         print(temp.value)
         temp = temp.next
+        if temp.next is None:
+            print(temp.value)
+
+    # Doubly Linked LIst operations
+    headNodeD = DoublyLinkedListNode(None)
+
+    print(addNodeD(headNodeD, 100))
+    print(addNodeD(headNodeD, 101))
+    print(addNodeD(headNodeD, 102))
+    print(addNodeD(headNodeD, 103))
+    print(addNodeD(headNodeD, 104))
+    print(addNodeD(headNodeD, 105))
+    print(addNodeD(headNodeD, 106))
+    print(addNodeD(headNodeD, 107))
+
+    headNodeD = headNodeD.next
+    # Printing in forward order
+    print("Forward order of Doubly Linked List :")
+    tempD = headNodeD
+    while tempD.next is not None:
+        print(tempD.value)
+        tempD = tempD.next
+        if tempD.next is None:
+            print(tempD.value)
+
+    # Printing in reverse order
+    print("Reverse order of Doubly Linked List :")
+    while tempD.prev is not None:
+        print(tempD.value)
+        tempD = tempD.prev
